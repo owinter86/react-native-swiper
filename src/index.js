@@ -256,6 +256,12 @@ export default class extends Component {
       ? height * props.index
       : width * props.index
 
+      // fix render last page first when loop = true
+      if (props.loop) {
+        initState.offset[initState.dir] = initState.dir === 'y'
+          ? height * (initState.index + 1)
+          : width * (initState.index + 1);
+      }
       if (state.total === initState.total && !props.updateIndex) {
       // retain the offset
       initState.offset = this.internals.offset
